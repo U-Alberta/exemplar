@@ -1,14 +1,11 @@
 package ca.ualberta.exemplar.core;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.trees.semgraph.SemanticGraph;
-import edu.stanford.nlp.trees.semgraph.SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation;
 import edu.stanford.nlp.util.CoreMap;
 
 public class ParserStanford implements Parser {
@@ -17,10 +14,10 @@ public class ParserStanford implements Parser {
 	
 	public ParserStanford(){
 		Properties props = new Properties();
-		props.put("customAnnotatorClass.cleanprefix", "ca.ualberta.complexre.core.CleanPrefixAnnotator");
-		props.put("customAnnotatorClass.nerhack", "ca.ualberta.complexre.core.NerHackAnnotator");
-		props.put("customAnnotatorClass.removedashes", "ca.ualberta.complexre.core.RemoveDashesAnnotator");
-		props.put("annotators", "tokenize, ssplit, removedashes, pos, lemma, ner, cleanprefix, nerhack, parse");
+		props.put("customAnnotatorClass.cleanprefix", "ca.ualberta.exemplar.core.CleanPrefixAnnotator");
+		props.put("customAnnotatorClass.locationjuxtaposition", "ca.ualberta.exemplar.core.LocationJuxtapositionAnnotator");
+		props.put("customAnnotatorClass.removedashes", "ca.ualberta.exemplar.core.RemoveDashesAnnotator");
+		props.put("annotators", "tokenize, ssplit, removedashes, pos, lemma, ner, cleanprefix, locationjuxtaposition, parse");
 		pipeline = new StanfordCoreNLP(props);
 	}
 	

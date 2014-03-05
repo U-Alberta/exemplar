@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 import ca.ualberta.exemplar.util.Paths;
-import edu.stanford.nlp.ling.CoreAnnotations.NamedEntityTagAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
@@ -28,7 +27,6 @@ import edu.stanford.nlp.util.CoreMap;
 
 public class RelationExtraction {
 
-	//private StanfordCoreNLP pipeline;
 	private Parser parser;
 	
 	private SemgrexPattern patternA, patternB, patternC;
@@ -96,50 +94,14 @@ public class RelationExtraction {
 		return regex.toString();
 	}
 	
-	/*private RelationInstance createBinaryInstance(RelationInstance instance, Argument arg1, Argument arg2){
-		RelationInstance newInstance = new RelationInstance();
-		String preposition = "";
-		if(arg2.getArgumentType().startsWith("POBJ")){
-			preposition = arg2.getArgumentType().substring(5).toLowerCase();
-		}
-		newInstance.setNormalizedRelation(instance.getNormalizedRelation() + " " + preposition);
-		newInstance.setOriginalRelation(instance.getOriginalRelation());
-		newInstance.addArgument(arg1);
-		newInstance.addArgument(arg2);
-		return newInstance;
-	}*/
-
-	/*public List<RelationInstance> extractBinaryRelations(CoreMap annotatedSentence) {
-		List<RelationInstance> instanceList = extractNAryRelations(annotatedSentence);
-		List<RelationInstance> newInstanceList = new ArrayList<RelationInstance>();
-		
-		for(RelationInstance instance : instanceList){
-			for(Argument arg1 : instance.getArguments()){
-				for(Argument arg2 : instance.getArguments()){
-					if(arg1 == arg2) continue;
-					if(arg1.getArgumentType().equals("SUBJ")){
-						if(arg2.getArgumentType().equals("DOBJ") || arg2.getArgumentType().startsWith("POBJ")){
-							newInstanceList.add(createBinaryInstance(instance, arg1, arg2));
-						}
-					}
-					if(arg1.getArgumentType().equals("DOBJ")){
-						if(arg2.getArgumentType().startsWith("POBJ")){
-							newInstanceList.add(createBinaryInstance(instance, arg1, arg2));
-						}
-					}
-				}
-			}
-		}
-		
-		return newInstanceList;
-		
-	}*/
-	
 	public List<RelationInstance> extractNAryRelations(CoreMap sentence) {
 		
-		SemanticGraph dependencies = sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);
+		List<RelationInstance> ret = new ArrayList<RelationInstance>();
 		
-		List<RelationInstance> instanceList = new ArrayList<RelationInstance>();
+		SemanticGraph dependencies = sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);
+		if(dependencies == null){
+			return ret;
+		}
 
 		/*System.out.println();
 		System.out.println(dependencies.toFormattedString());
@@ -185,7 +147,7 @@ public class RelationExtraction {
 				//System.out.println("Template A: " + relText);
 				argExtractor.extractArgumentsTemplateA(sentence, dependencies, triggers, instance);
 				if(shouldAddInstance(instance)){
-					instanceList.add(instance);
+					ret.add(instance);
 				}
 
 			}
@@ -213,7 +175,7 @@ public class RelationExtraction {
 				//System.out.println("Template B: " + instance.getOriginalRelation());
 				argExtractor.extractArgumentsTemplateB(sentence,dependencies, triggers, instance);
 				if(shouldAddInstance(instance)){
-					instanceList.add(instance);
+					ret.add(instance);
 				}
 			}
 		}
@@ -241,12 +203,12 @@ public class RelationExtraction {
 				//System.out.println("Template C: " + instance.getOriginalRelation());
 				argExtractor.extractArgumentsTemplateC(sentence, dependencies, triggers, instance);
 				if(shouldAddInstance(instance)){
-					instanceList.add(instance);
+					ret.add(instance);
 				}
 			}
 		}
 		//System.out.println(instanceList);
-		return instanceList;
+		return ret;
 
 	}
 
@@ -410,15 +372,6 @@ public class RelationExtraction {
 		return rel.toString().trim();
 	}
 	
-	private static String wordsToRelation(List<IndexedWord> words){
-		StringBuilder regex = new StringBuilder();
-		for(IndexedWord word : words){
-			regex.append(word.word());
-			regex.append(' ');
-		};
-		return regex.toString().trim();
-	}
-
 	private static boolean hasNerChild(IndexedWord word, SemanticGraph dependencies){
 		for(IndexedWord child : dependencies.getChildren(word)){
 			if(child.ner() != null){
@@ -426,13 +379,6 @@ public class RelationExtraction {
 			}
 		}
 		return false;
-	}
-
-	private static void addDeterminers(List<IndexedWord> words, IndexedWord word, SemanticGraph dependencies){
-		List<IndexedWord> dets = dependencies.getChildrenWithReln(word, GrammaticalRelation.valueOf("det"));
-
-		if(dets != null) words.addAll(dets);
-
 	}
 
 	private static void addModifiers(List<IndexedWord> words, IndexedWord word, SemanticGraph dependencies){

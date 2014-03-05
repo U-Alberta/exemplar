@@ -39,23 +39,20 @@ public class ParserMalt implements Parser {
     private Map<String,String> relationMap;
 
     private StanfordCoreNLP pipeline;
-
-    private static final String MALT_PARSER_FILENAME = "engmalt.linear-1.7.mco";
-    private static final String MALT_PARSER_DIRECTORY = ".";
 	
 	public ParserMalt(){
 		
 		try {
 
 			Properties props = new Properties();
-			props.put("customAnnotatorClass.cleanprefix", "ca.ualberta.complexre.core.CleanPrefixAnnotator");
-			props.put("customAnnotatorClass.nerhack", "ca.ualberta.complexre.core.NerHackAnnotator");
-			props.put("customAnnotatorClass.removedashes", "ca.ualberta.complexre.core.RemoveDashesAnnotator");
-			props.put("annotators", "tokenize, ssplit, removedashes, pos, lemma, ner, cleanprefix, nerhack");
+			props.put("customAnnotatorClass.cleanprefix", "ca.ualberta.exemplar.core.CleanPrefixAnnotator");
+			props.put("customAnnotatorClass.locationjuxtaposition", "ca.ualberta.exemplar.core.LocationJuxtapositionAnnotator");
+			props.put("customAnnotatorClass.removedashes", "ca.ualberta.exemplar.core.RemoveDashesAnnotator");
+			props.put("annotators", "tokenize, ssplit, removedashes, pos, lemma, ner, cleanprefix, locationjuxtaposition");
 			pipeline = new StanfordCoreNLP(props);
 
 			maltParser = new MaltParserService();
-			maltParser.initializeParserModel("-c " + MALT_PARSER_FILENAME
+			maltParser.initializeParserModel("-c " + Paths.MALT_PARSER_FILENAME
 					+ " -w " + Paths.MALT_PARSER_DIRECTORY + " -m parse");
 			
 			// Used to map from malt relations to Stanford relations

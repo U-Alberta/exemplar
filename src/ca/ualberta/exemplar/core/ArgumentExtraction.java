@@ -1,19 +1,15 @@
 package ca.ualberta.exemplar.core;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import edu.stanford.nlp.ling.CoreAnnotations.NamedEntityTagAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.OriginalTextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.semgrex.SemgrexMatcher;
 import edu.stanford.nlp.semgrex.SemgrexPattern;
-import edu.stanford.nlp.trees.GrammaticalRelation;
 import edu.stanford.nlp.trees.semgraph.SemanticGraph;
 import edu.stanford.nlp.util.CoreMap;
 
@@ -349,12 +345,12 @@ public class ArgumentExtraction {
 		return stanfordType;
 	}
 	
-	private String getOriginalText(IndexedWord word){
+	/*private String getOriginalText(IndexedWord word){
 		if(word.containsKey(OriginalTextAnnotation.class)){
 			return word.originalText();
 		}
 		return word.word();
-	}
+	}*/
 	
 	private Argument getEntityFromHead(IndexedWord head, CoreMap sentence, SemanticGraph dependencies, String argumentType){
 
@@ -401,31 +397,6 @@ public class ArgumentExtraction {
 		Argument argument = new Argument(argumentType, entityId, entityName, entityType, startIndex, endIndex, startOffset, endOffset); 
 
 		return argument;
-	}
-	
-	//From the head word adds nn dependencies with the same named entity tag
-	private String getFullEntityFromHead(IndexedWord head, SemanticGraph dependencies ){
-		List<IndexedWord> words = new ArrayList<IndexedWord>();
-		words.add(head);
-		List<IndexedWord> nns = dependencies.getChildrenWithReln(head, GrammaticalRelation.valueOf("nn"));
-		for(IndexedWord nn : nns){
-			if(nn.ner() != null || nn.ner().equals(head.ner()))
-				words.add(nn);
-		}
-		Collections.sort(words, new Comparator<IndexedWord>(){
-
-			@Override
-			public int compare(IndexedWord a0, IndexedWord a1) {
-				return a0.index() - a1.index();
-			}
-			
-		});
-		StringBuilder fullEntity = new StringBuilder();
-		for(IndexedWord word : words){
-			fullEntity.append(word.word());
-			fullEntity.append(' ');
-		};
-		return fullEntity.toString().trim();
 	}
 	
 }

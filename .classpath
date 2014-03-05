@@ -8,7 +8,8 @@
 	<classpathentry kind="lib" path="lib/maltparser-1.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-corenlp-2012-07-09.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-tregex-2.0.5.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ReLibraryCommon"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ReLibraryIO"/>
+	<classpathentry kind="lib" path="lib/xom.jar"/>
+	<classpathentry kind="lib" path="lib/stanford-corenlp-2012-07-06-models.jar"/>
+	<classpathentry kind="lib" path="lib/joda-time.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

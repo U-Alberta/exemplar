@@ -6,14 +6,13 @@
         <jar destfile="./exemplar.jar">
             <manifest>
                 <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
-                <attribute name="Rsrc-Main-Class" value="ca.ualberta.complexre.core.Exemplar"/>
+                <attribute name="Rsrc-Main-Class" value="ca.ualberta.exemplar.core.Exemplar"/>
                 <attribute name="Class-Path" value="."/>
                 <attribute name="Rsrc-Class-Path" value="./ liblinear-1.8.jar libsvm.jar log4j.jar maltparser-1.7.2.jar stanford-corenlp-2012-07-09.jar stanford-tregex-2.0.5.jar stanford-corenlp-2012-07-06-models.jar xom.jar joda-time.jar"/>
             </manifest>
             <zipfileset src="jar-in-jar-loader.zip"/>
             <fileset dir="../bin"/>
-            <fileset dir="../../ReLibraryCommon/bin"/>
-	    <fileset dir="../../ReLibraryIO/bin"/>
+            <fileset dir="../src"/>
             <zipfileset dir="../../dependencies/lib" includes="liblinear-1.8.jar"/>
             <zipfileset dir="../../dependencies/lib" includes="libsvm.jar"/>
             <zipfileset dir="../../dependencies/lib" includes="log4j.jar"/>
