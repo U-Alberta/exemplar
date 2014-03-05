@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/liblinear-1.8.jar"/>
+	<classpathentry kind="lib" path="lib/libsvm.jar"/>
+	<classpathentry kind="lib" path="lib/log4j.jar"/>
+	<classpathentry kind="lib" path="lib/maltparser-1.7.2.jar"/>
+	<classpathentry kind="lib" path="lib/stanford-corenlp-2012-07-09.jar"/>
+	<classpathentry kind="lib" path="lib/stanford-tregex-2.0.5.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ReLibraryCommon"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ReLibraryIO"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
