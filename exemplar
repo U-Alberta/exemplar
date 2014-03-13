@@ -1,1 +1,0 @@
-java -d64 -Xmx3G -jar exemplar.jar $@ 

@@ -2,14 +2,14 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/joda-time-2.3.jar"/>
 	<classpathentry kind="lib" path="lib/liblinear-1.8.jar"/>
-	<classpathentry kind="lib" path="lib/libsvm.jar"/>
-	<classpathentry kind="lib" path="lib/log4j.jar"/>
+	<classpathentry kind="lib" path="lib/libsvm-3.17.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="lib/maltparser-1.7.2.jar"/>
-	<classpathentry kind="lib" path="lib/stanford-corenlp-2012-07-09.jar"/>
+	<classpathentry kind="lib" path="lib/stanford-corenlp-1.3.3-models.jar"/>
+	<classpathentry kind="lib" path="lib/stanford-corenlp-1.3.3.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-tregex-2.0.5.jar"/>
-	<classpathentry kind="lib" path="lib/xom.jar"/>
-	<classpathentry kind="lib" path="lib/stanford-corenlp-2012-07-06-models.jar"/>
-	<classpathentry kind="lib" path="lib/joda-time.jar"/>
+	<classpathentry kind="lib" path="lib/xom-1.2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

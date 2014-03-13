@@ -33,7 +33,7 @@ public class Exemplar {
 
 	public static void main(String[] args){
 		if(args.length != 3){
-			System.out.println("Options: parser(stanford|malt) input-documents triples");
+			System.out.println("Options: parser(stanford|malt) input output");
 			System.exit(0);
 		}
 

@@ -1,0 +1,62 @@
+<project name="Exemplar" default="dist" basedir=".">
+  <description>
+    Build file for Exemplar.
+  </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="bin" location="bin"/>
+  <property name="dist"  location="dist"/>
+  <property name="lib"  location="lib"/>
+
+  <target name="init">
+  </target>
+
+  <target name="compile" depends="init"
+    description="compile the source " >
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${bin}"/>
+
+    <!-- Compile the java code from ${src} into ${bin} -->
+    <javac includeantruntime="false" srcdir="${src}" destdir="${bin}">
+      <classpath>
+        <pathelement path="${classpath}"/>
+        <fileset dir="${lib}">
+          <include name="**/*.jar"/>
+        </fileset>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="dist" depends="compile"
+    description="generate the distribution" >
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${dist}"/>
+    <!-- Put everything in ${bin}, ${src} and ${lib} into the exemplar.jar file -->
+    <jar jarfile="${dist}/exemplar.jar" basedir="${bin}">
+      <manifest>
+        <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+        <attribute name="Rsrc-Main-Class" value="ca.ualberta.exemplar.core.Exemplar"/>
+        <attribute name="Class-Path" value="."/>
+        <attribute name="Rsrc-Class-Path" value="./ liblinear-1.8.jar libsvm-3.17.jar log4j-1.2.17.jar maltparser-1.7.2.jar stanford-corenlp-1.3.3.jar stanford-corenlp-1.3.3-models.jar stanford-tregex-2.0.5.jar joda-time-2.3.jar xom-1.2.5.jar"/>
+      </manifest>
+      <fileset dir="${bin}"/>
+      <fileset dir="${src}"/>
+      <zipfileset dir="${lib}" includes="liblinear-1.8.jar"/>
+      <zipfileset dir="${lib}" includes="libsvm-3.17.jar"/>
+      <zipfileset dir="${lib}" includes="log4j-1.2.17.jar"/>
+      <zipfileset dir="${lib}" includes="maltparser-1.7.2.jar"/>
+      <zipfileset dir="${lib}" includes="stanford-corenlp-1.3.3.jar"/>
+      <zipfileset dir="${lib}" includes="stanford-corenlp-1.3.3-models.jar"/>
+      <zipfileset dir="${lib}" includes="stanford-tregex-2.0.5.jar"/>
+      <zipfileset dir="${lib}" includes="joda-time-2.3.jar"/>
+      <zipfileset dir="${lib}" includes="xom-1.2.5.jar"/>
+    </jar>
+  </target>
+
+
+  <target name="clean"
+    description="clean up" >
+    <delete dir="${bin}"/>
+    <delete dir="${dist}"/>
+  </target>
+</project>

@@ -1,2 +1,12 @@
 tmp/
+dist/
+bin/
+
 *.mco
+*.jar
+*.zip
+
+.settings
+.project
+.classpath
+.DS_Store
