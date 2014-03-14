@@ -26,7 +26,7 @@ The role of an argument can be one of the following: SUBJ (subject), DOBJ (direc
 
 Download all dependencies:
 
-    $ sh lib/get_dependencies.sh 
+    $ sh dependencies.sh 
 
 Compile and build jar with all dependencies:
 
