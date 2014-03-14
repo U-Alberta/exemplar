@@ -79,7 +79,7 @@ public class ArgumentExtraction {
 						"| <partmod=dep {"+NER+"}=arg | <rcmod=dep {"+NER+"}=arg");
 
 	}
-
+	//TemplateC: copula+noun
 	public void extractArgumentsTemplateC(CoreMap sentence, SemanticGraph dependencies, List<IndexedWord> relationalWords, RelationInstance instance) {
 
 		//Dependencies where the relation is the governor
@@ -121,6 +121,7 @@ public class ArgumentExtraction {
 		assignArgumentTypesTemplateC(instance);
 	}
 
+	//Template B: verb+noun
 	public void extractArgumentsTemplateB(CoreMap sentence, SemanticGraph dependencies, List<IndexedWord> relationalWords, RelationInstance instance) {
 
 
@@ -164,6 +165,7 @@ public class ArgumentExtraction {
 
 	}
 
+	//Template A: verb
 	public void extractArgumentsTemplateA(CoreMap sentence, SemanticGraph dependencies, List<IndexedWord> relationalWords, RelationInstance instance) {
 
 		//Dependencies where the relation is the governor
@@ -300,7 +302,7 @@ public class ArgumentExtraction {
 			}
 		}
 		
-		// Revolve passive voice with partmod
+		// Resolve passive voice with partmod
 		for(Argument arg1 : listArguments){
 			for(Argument arg2 : listArguments){
 				if(arg1.getArgumentType().equals("VB<partmod") || arg1.getArgumentType().equals("VB<rcmod")){

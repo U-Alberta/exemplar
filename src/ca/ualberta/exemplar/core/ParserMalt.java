@@ -190,6 +190,7 @@ public class ParserMalt implements Parser {
 							n.label().setNER(tokens.get(n.index()-1).ner());
 							n.label().setBeginPosition(tokens.get(n.index()-1).beginPosition());
 							n.label().setEndPosition(tokens.get(n.index()-1).endPosition());
+							n.label().setLemma(tokens.get(n.index()-1).lemma());
 						}
 					}
 					{
@@ -198,6 +199,7 @@ public class ParserMalt implements Parser {
 							n.label().setNER(tokens.get(n.index()-1).ner());
 							n.label().setBeginPosition(tokens.get(n.index()-1).beginPosition());
 							n.label().setEndPosition(tokens.get(n.index()-1).endPosition());
+							n.label().setLemma(tokens.get(n.index()-1).lemma());
 						}
 					}
 				}

@@ -63,7 +63,7 @@ public class CleanPrefixAnnotator implements Annotator {
 							nextToken.set(BeforeAnnotation.class, before);
 							sentence.set(TokensAnnotation.class,
 									tokens.subList(i + 1, tokens.size()));
-							System.out.println("Removed Prefix: " + before);
+							//System.out.println("Removed Prefix: " + before);
 						}
 						break;
 					}

@@ -61,13 +61,15 @@ public class RelationExtraction {
 		argExtractor = new ArgumentExtraction();
 		filterRelations=true;
 
+		// Relation: verb
 		patternA = SemgrexPattern
 				.compile("[{tag:/VB.*/;ner:O}=rel | {tag:/NNS?/;word:/"+nominalizedVerbRegex+"/;ner:O}=relnom] " + 
 						"!>/cop|appos/ {} !<nn {} !>/dobj|nsubjpass/ {tag:/NNS?/;ner:O}");
-		
+		// Relation: verb + noun
 		patternB = SemgrexPattern
 				.compile("{tag:/VB.*/;ner:O}=rel >/dobj|nsubjpass/ {tag:/NNS?/;ner:O}=dobj");
 		
+		// Relation: copula + noun
 		patternC = SemgrexPattern
 				.compile("{tag:/NN.*/;ner:O}=rel ?>cop {}=copula");
 	}
@@ -403,7 +405,6 @@ public class RelationExtraction {
 		List<IndexedWord> adjs = dependencies.getChildrenWithReln(word, GrammaticalRelation.valueOf("amod"));
 		List<IndexedWord> nns = dependencies.getChildrenWithReln(word, GrammaticalRelation.valueOf("nn"));
 		List<IndexedWord> negs = dependencies.getChildrenWithReln(word, GrammaticalRelation.valueOf("neg"));
-		List<IndexedWord> auxs = dependencies.getChildrenWithReln(word, GrammaticalRelation.valueOf("aux"));
 		List<IndexedWord> pvts = dependencies.getChildrenWithReln(word, GrammaticalRelation.valueOf("pvt")); // phrasal verb particle -- shut down
 		
 
@@ -412,7 +413,6 @@ public class RelationExtraction {
 		if(nns != null) newWords.addAll(nns);
 		if(negs != null) newWords.addAll(negs);
 		if(pvts != null) newWords.addAll(pvts);
-		if(auxs != null) newWords.addAll(auxs);
 
 		for(IndexedWord newWord : newWords){
 			
