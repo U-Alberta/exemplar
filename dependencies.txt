@@ -8,3 +8,4 @@ http://www.java2s.com/Code/JarDownload/stanford/stanford-tregex-2.0.5.jar.zip
 http://repo1.maven.org/maven2/joda-time/joda-time/2.3/joda-time-2.3.jar
 http://repo1.maven.org/maven2/xom/xom/1.2.5/xom-1.2.5.jar
 http://www.maltparser.org/mco/english_parser/engmalt.linear-1.7.mco
+http://central.maven.org/maven2/commons-cli/commons-cli/1.2/commons-cli-1.2.jar

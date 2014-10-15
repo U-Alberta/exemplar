@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import edu.stanford.nlp.util.CoreMap;
+
 public class RelationInstance {
 	String normalizedRelation;
 	String originalRelation;
@@ -36,6 +38,8 @@ public class RelationInstance {
 	Map<String, List<Argument>> argumentMap;
 	Set<Integer> argumentIndices;
 	
+	CoreMap annotatedSentence;
+
 	public RelationInstance(){
 		arguments = new ArrayList<Argument>(2);
 		argumentMap = new HashMap<String,List<Argument>>();
@@ -107,6 +111,15 @@ public class RelationInstance {
 	public String toString(){
 		return originalRelation + " " + argumentMap;
 	}
+	
+	public CoreMap getAnnotatedSentence() {
+		return annotatedSentence;
+	}
+
+	public void setAnnotatedSentence(CoreMap annotatedSentence) {
+		this.annotatedSentence = annotatedSentence;
+	}
+
 	
 	public String detailedString(){
 		StringBuilder sb = new StringBuilder();

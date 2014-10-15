@@ -16,13 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with EXEMPLAR.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package ca.ualberta.exemplar.util;
 
 /**
  * ComplexRE file / dependencies Paths.
  * 
- * @author gustavo
- *
  */
 public class Paths {
 

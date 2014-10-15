@@ -37,7 +37,7 @@
         <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
         <attribute name="Rsrc-Main-Class" value="ca.ualberta.exemplar.core.Exemplar"/>
         <attribute name="Class-Path" value="."/>
-        <attribute name="Rsrc-Class-Path" value="./ liblinear-1.8.jar libsvm-3.17.jar log4j-1.2.17.jar maltparser-1.7.2.jar stanford-corenlp-1.3.3.jar stanford-corenlp-1.3.3-models.jar stanford-tregex-2.0.5.jar joda-time-2.3.jar xom-1.2.5.jar"/>
+        <attribute name="Rsrc-Class-Path" value="./ liblinear-1.8.jar libsvm-3.17.jar log4j-1.2.17.jar maltparser-1.7.2.jar stanford-corenlp-1.3.3.jar stanford-corenlp-1.3.3-models.jar stanford-tregex-2.0.5.jar joda-time-2.3.jar xom-1.2.5.jar commons-cli-1.2.jar"/>
       </manifest>
       <fileset dir="${bin}"/>
       <fileset dir="${src}"/>
@@ -50,6 +50,14 @@
       <zipfileset dir="${lib}" includes="stanford-tregex-2.0.5.jar"/>
       <zipfileset dir="${lib}" includes="joda-time-2.3.jar"/>
       <zipfileset dir="${lib}" includes="xom-1.2.5.jar"/>
+      <zipfileset dir="${lib}" includes="commons-cli-1.2.jar"/>
+    </jar>
+    <jar jarfile="${dist}/exemplar-src.jar" basedir="${bin}">
+      <manifest>
+        <attribute name="Class-Path" value="."/>
+      </manifest>
+      <fileset dir="${bin}"/>
+      <fileset dir="${src}"/>
     </jar>
   </target>
 

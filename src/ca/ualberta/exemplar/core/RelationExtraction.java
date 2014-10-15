@@ -251,7 +251,7 @@ public class RelationExtraction {
 		for(CoreMap sentence : sentences){
 			try {
 				List<RelationInstance> newInstances = extractNAryRelations(sentence);
-
+				
 				List<CoreLabel> tokens = sentence.get(TokensAnnotation.class);
 				StringBuilder sentenceString = new StringBuilder();
 				for(CoreLabel token : tokens){
@@ -260,6 +260,7 @@ public class RelationExtraction {
 				}
 
 				for(RelationInstance instance : newInstances){
+					instance.setAnnotatedSentence(sentence);
 					instance.setSentence(sentenceString.toString().trim());
 					instanceList.add(instance);
 				}
@@ -303,7 +304,7 @@ public class RelationExtraction {
 			return true;
 		}
 		
-		if(instance.getArguments().size() >= 2){
+		if(instance.getArguments().size() >= 1){
 			for(Argument arg : instance.getArguments()){
 				if(arg.getArgumentType().equals("SUBJ") || arg.getArgumentType().equals("DOBJ")){
 					return true;

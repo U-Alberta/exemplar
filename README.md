@@ -34,13 +34,16 @@ Compile and build jar with all dependencies:
 
 ## Running
 
-    $ sh exemplar.sh parser input output
+    $ sh exemplar.sh [options] <input> <output>
+       -b,--benchmark <arg>   expects input to be a benchmark file (arg = binary | nary)
+	   -h,--help              shows this message
+	   -p,--parser <arg>      defines which parser to use (arg = stanford | malt)
 
-* parser: the parser to be used. Valid options are: stanford and malt.
+* *input*: path to the document file or directory containing the document files. The tool will recursively look for .txt files in subdirectories.
+* *output*: path to the file where the triples will be stored. 
+* *benchmark option*: assumes the input file is formatted according to the ground truth files of [our benchmarks for open relation extraction (click to download)](http://ualberta.ca/~mesquita/emnlp13_ualberta_experiments_v2.zip). These benchmarks are discussed in the paper entitled "Effectiveness and Efficiency of Open Relation Extraction" (see reference in the 'Citing' section). Valid values for this option are 'binary' (for binary relation extraction) and 'nary' (for nary relation extraction). If this option is not provided, the system assumes the input file contains plain text.
+* *parser option*: defines which dependency parser to use. Valid values are 'stanford' and 'malt'. If this option is not provided, the system will use the Malt parser.
 
-* input: path to the document file or directory containing the document files. The tool will recursively look for .txt files in subdirectories.
-
-* output: path to the file where the triples will be stored. 
 
 ## Sample Output
 
@@ -55,10 +58,8 @@ The suffix in each argument corresponds to its type. Possible types are person (
 
 The main libraries used in this tool are:
 
-### Stanford Parser
- tokenization, lemmatization, part-of-speech tagging, named entity recognition and dependency parsing.
-### Malt Parser
- dependency parsing.
+ * Stanford Parser: tokenization, lemmatization, part-of-speech tagging, named entity recognition and dependency parsing.
+ * Malt Parser: dependency parsing.
 
 ## Citing
 If you use this code in your research, please acknowledge that by citing:

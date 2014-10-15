@@ -27,19 +27,77 @@ import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+import org.apache.commons.cli.BasicParser;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+
+import ca.ualberta.exemplar.evaluation.BenchmarkBinary;
+import ca.ualberta.exemplar.evaluation.BenchmarkNary;
+
 public class Exemplar {
 
 	public static final int QUEUE_SIZE = 100;
 
-	public static void main(String[] args){
-		if(args.length != 3){
-			System.out.println("Options: parser(stanford|malt) input output");
+	public static void main(String[] rawArgs) throws FileNotFoundException, UnsupportedEncodingException{
+		
+		CommandLineParser cli = new BasicParser();
+		
+		Options options = new Options();
+		options.addOption("h", "help", false, "shows this message");
+		options.addOption("b", "benchmark", true, "expects input to be a benchmark file (type = binary | nary)");
+		options.addOption("p", "parser", true, "defines which parser to use (parser = stanford | malt)");
+		
+		CommandLine line = null;
+		
+		try {
+	        line = cli.parse( options, rawArgs );
+	    }
+	    catch( ParseException exp ) {
+	        System.err.println( exp.getMessage() );
+	        System.exit(1);
+	    }
+		
+		String[] args = line.getArgs();
+		String parserName = line.getOptionValue("parser", "malt");
+		
+				
+		if(line.hasOption("help")){
+			HelpFormatter formatter = new HelpFormatter();
+			formatter.printHelp( "sh ./exemplar", options );
+			System.exit(0);
+		}
+		
+		if(args.length != 2){
+			System.out.println("error: exemplar requires an input file and output file.");
+			HelpFormatter formatter = new HelpFormatter();
+			formatter.printHelp( "sh ./exemplar <input> <output>", options );
 			System.exit(0);
 		}
 
-		String parserName = args[0];
-		File inputDirectory = new File(args[1]);
-		File tripleFile = new File(args[2]);
+		File input = new File(args[0]);
+		File output = new File(args[1]);
+		
+		String benchmarkType = line.getOptionValue("benchmark", "");
+		if(!benchmarkType.isEmpty()){
+			if(benchmarkType.equals("binary")){
+				BenchmarkBinary evaluation = new BenchmarkBinary(input, output, parserName); 
+				evaluation.runAndTime();
+				System.exit(0);
+			}
+			else{
+				if(benchmarkType.equals("nary")){
+					BenchmarkNary evaluation = new BenchmarkNary(input, output, parserName); 
+					evaluation.runAndTime();
+					System.exit(0);
+				}else{
+					System.out.println("error: benchmark option has to be either 'binary' or 'nary'.");
+					System.exit(0);
+				}
+			}
+		}
 
 		Parser parser = null;
 		if (parserName.equals("stanford")){
@@ -64,7 +122,7 @@ public class Exemplar {
 
 		BlockingQueue<String> inputQueue = new ArrayBlockingQueue<String>(QUEUE_SIZE);
 		PlainTextReader reader=null;
-		reader = new PlainTextReader(inputQueue,inputDirectory);
+		reader = new PlainTextReader(inputQueue,input);
 
 		Thread readerThread = new Thread(reader);
 		readerThread.start();
@@ -72,7 +130,7 @@ public class Exemplar {
 		PrintStream statementsOut = null;
 
 		try {
-			statementsOut = new PrintStream(tripleFile, "UTF-8");
+			statementsOut = new PrintStream(output, "UTF-8");
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 			System.exit(0);
